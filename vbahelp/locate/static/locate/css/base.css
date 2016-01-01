@@ -1,0 +1,169 @@
+/* Huge thanks to Joss at http://cssreset.com/how-to-keep-footer-at-bottom-of-page-with-css/ */
+/* Made some modifications, but this site gave me a good starting point */
+
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+#content-wrapper {
+	min-height:88%;
+	position:relative;
+    background-color: #E6EBE6;
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+#header {
+    background-color: #1F5C1F;
+    min-height: 5%;
+    position: relative;
+    box-shadow: 2px 2px 2px 2px #243B0B;
+    z-index: 10;
+    padding: 10px;
+    padding-left: 35px;
+}
+
+#main-content {
+	padding-bottom: 60px;
+    padding: 20px;
+    width: 100%;
+}
+
+#footer {
+	width:100%;
+	height:3.5%;
+	position:relative;
+    padding-top: 10px;
+    padding-bottom: 5px;
+	bottom:0;
+	left:0;
+    background-color: darkgray;
+}
+
+#left-nav {
+    flex: 0 0 12em;
+        -webkit-flex: 0 0 12em;
+        -webkit-box-flex: 0 0 12em;
+        -moz-box-flex: 0 0 12em;
+        -ms-flex: 0 0 12em;
+    background-color: #8FAE8F;
+
+    -webkit-box-ordinal-group: -1;
+    -ms-flex-order: -1;
+    -webkit-order: -1;
+    order: -1;
+}
+
+#copyright {
+    float: right;
+    margin-right: 10px;
+}
+
+#queue {
+    position: relative;
+    display: inline-block;
+    float: left;
+    font-size: 18px;
+    font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    margin-left: 20px;
+}
+
+.side-bar-ul {
+    list-style-type: none;
+    display: block;
+    padding: 0;
+    margin: 60px 0px 0px 0px;
+    width: 100%;
+}
+
+.side-bar-ul > li {
+    text-align: center;
+    background-color: #1F5C1F;
+    margin: 5px 0px 0px 10px;
+    border-radius: 5px 0px 0px 5px;
+    font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.side-bar-ul > li > a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    width: 84%;
+    height: 100%;
+    padding: 20px 15px 20px 15px;
+}
+
+.side-bar-ul > li:hover {
+    background: white;
+}
+
+.side-bar-ul > li:hover a {
+    color: #1F5C1F;
+}
+
+.site-title {
+    color: white;
+    font-family: "Garamond", Times, serif;
+    font-size: 34px;
+}
+
+.side-bar-ul > li.active-page-tab {
+    background-color: #E6EBE6;
+    color: black;
+}
+
+.side-bar-ul > li.active-page-tab > a {
+    color: black;
+}
+
+.page-title {
+    font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    font-size: 21px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@media all and (max-width: 949px) {
+   #content-wrapper {
+      flex-direction: column;
+        -webkit-flex-direction: column;
+        -webkit-box-flex-direction: column;
+        -moz-box-flex-direction: column;
+        -ms-flex-direction: column;
+   }
+
+   #left-nav {
+       padding: 10px 0px 0px 0px;
+       flex: 0;
+        -webkit-flex: 0;
+        -webkit-box-flex: 0;
+        -ms-flex: 0;
+   }
+   .side-bar-ul {
+       margin: 0px 0px 0px 0px;
+       width: auto;
+   }
+   .side-bar-ul > li {
+       display: inline-block;
+       border-radius: 5px 5px 0px 0px;
+   }
+
+   .side-bar-ul > li > a {
+       padding: 5px 15px 5px 15px;
+       width: 82%;
+   }
+}
+
+@media all and (min-width: 950px) {
+  #content-wrapper {
+      flex-direction: row;
+        -webkit-flex-direction: row;
+        -webkit-box-flex-direction: row;
+        -ms-flex-direction: row;
+
+  }
+}

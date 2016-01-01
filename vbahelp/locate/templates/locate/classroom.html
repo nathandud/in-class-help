@@ -1,0 +1,69 @@
+{% extends "locate/base.html" %}
+
+{% block title %}
+ <title>Get Help</title>
+{% endblock %}
+
+{% block static-css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'locate/css/classroom.css' %}" />
+    <link rel="stylesheet" href="{% static 'locate/css/codemirror.css' %}">
+{% endblock %}
+
+
+{% block main-content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div id="classroom" class="col-md-8 well">
+                <div class="lead">1. Click on your location</div>
+                <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="{{ layout.width }}" height="{{ layout.height }}" />
+                <canvas class="center-block" id="classroom-layout" width="{{ layout.width }}" height="{{ layout.height }}"></canvas>
+            </div>
+            <form action="" method="post">
+                <div id="ask_question" class="col-md-4 well">
+                    <div class="lead">
+                        2. What's the problem?
+                    </div>
+                    {% csrf_token %}
+                    {% for field in question_form|slice:":1" %}
+                        {{ field }}
+                    {% endfor %}
+                </div>
+                <div id="submit_code" class="col-md-4 well">
+                    <div class="lead">
+                        3. Submit code here (optional)
+                    </div>
+                    {%for field in question_form|slice:"1:6" %}
+                        {{ field }}
+                    {% endfor %}
+
+                        <input id="btn-get-help" type="submit" value="Get Help" />
+
+                </div>
+
+                    <!--{{ question_form }}-->
+
+             </form>
+        </div>
+    </div>
+
+
+
+
+<!--<button id="btn-get-help">Get Help</button>-->
+{% endblock %}
+
+<!--{% block footer-content %}-->
+    <!--&lt;!&ndash;<div id="queue">There are {{ queue_count }} students in line.</div>&ndash;&gt;-->
+<!--{% endblock %}-->
+
+{% block static-js %}
+<script src="{% static 'locate/js/classroom.js' %}"></script>
+<script src="{% static 'locate/js/drawcircle.js' %}"></script>
+<script src="{% static 'locate/js/codemirror.js' %}"></script>
+
+<!--load the path variables needed for the vbscript file-->
+<script type="text/javascript"> codemirror_path = "{% static 'locate/js/codemirror.js' %}";</script>
+<script src="{% static 'locate/js/vbscript.js' %}"></script>
+{% endblock %}

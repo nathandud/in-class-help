@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+    {% block title %}
+    <title>Locator</title>
+    {% endblock %}
+
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{{ MEDIA_URL }}icons/lightbulb-2x.png"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'locate/css/base2.css' %}"/>
+    {% block static-css %}{% endblock %}
+
+</head>
+<body>
+    <div id="header">
+        <div class="site-title">
+            VBA Help
+        </div>
+	</div>
+	<div id="content-wrapper">
+        <nav id="left-nav">
+            {% block left-nav-content %}{% endblock %}
+        </nav>
+		<div id="main-content">
+            {% block main-content %}{% endblock %}
+		</div>
+	</div>
+    <!--<div id="footer">-->
+        <!--{% block footer-content %}{% endblock %}-->
+<!--{#        TODO: Add student queue #}-->
+            <!--<div id="copyright">VBA Help Site - 2015</div>-->
+	<!--</div>-->
+</body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+{% block static-js %}{% endblock %}
+
+</html>

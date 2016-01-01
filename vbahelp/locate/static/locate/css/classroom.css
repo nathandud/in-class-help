@@ -1,0 +1,41 @@
+#classroom-layout {
+    position: relative;
+    border-radius: 10px;
+    /*display: table-cell;*/
+    /*horizontal-align: middle;*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#background-img {
+    display: none;
+}
+
+#btn-get-help {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+
+    padding: 10px 15px 10px 15px;
+
+    background-color: #1F5C1F;
+    border-radius:6px;
+    color: #fff;
+    font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    border:none;
+}
+
+#btn-get-help:hover {
+    border: none;
+    background: white;
+    color: #1F5C1F;
+    box-shadow: 0px 0px 1px #777;
+}
+
+
+
+

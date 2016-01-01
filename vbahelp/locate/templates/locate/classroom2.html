@@ -1,0 +1,41 @@
+{% extends "locate/base.html" %}
+
+{% block title %}
+ <title>Get Help</title>
+{% endblock %}
+
+{% block static-css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'locate/css/classroom.css' %}" />
+{% endblock %}
+
+{% block left-nav-content %}
+{# TODO: Add a side bar with option to submit code #}
+    <ul class="side-bar-ul">
+        <li class="active-page-tab"><a href="/locate/gethelp">Send Location</a></li>
+        <li><a href="/locate/askquestion">Submit Question</a></li>
+    </ul>
+{% endblock %}
+
+{% block main-content %}
+    <div class="page-title">Click on your location in the classroom.</div>
+    <img id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom"/>
+    <canvas id="classroom-layout" width="{{ layout.file_upload.width }}" height="{{ layout.file_upload.height }}"></canvas>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ question_form }}
+        <input id="btn-get-help" type="submit" value="Get Help" />
+    </form>
+
+<!--<button id="btn-get-help">Get Help</button>-->
+{% endblock %}
+
+{% block footer-content %}
+    <div id="queue">There are {{ queue_count }} students in line.</div>
+{% endblock %}
+
+{% block static-js %}
+<script src="{% static 'locate/js/classroom.js' %}"></script>
+<script src="{% static 'locate/js/drawcircle.js' %}"></script>
+{% endblock %}

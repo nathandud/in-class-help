@@ -1,0 +1,26 @@
+{% extends "locate/base.html" %}
+
+{% block title %}
+ <title>VBA TA Dashboard</title>
+{% endblock %}
+
+{% block static-css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'locate/css/classroom.css' %}" />
+{% endblock %}
+
+{% block main-content %}
+    <img id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom"/>
+    <canvas id="classroom-layout" width="{{ layout.file_upload.width }}" height="{{ layout.file_upload.height }}"></canvas>
+{% endblock %}
+
+
+{% block static-js %}
+
+<script type="text/javascript">
+    data_from_django = '{{ js_data|safe }}';
+</script>
+
+<script src="{% static 'locate/js/dashboard.js' %}"></script>
+<script src="{% static 'locate/js/drawcircle.js' %}"></script>
+{% endblock %}
