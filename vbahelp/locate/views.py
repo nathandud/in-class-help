@@ -3,8 +3,6 @@ from django.core import serializers
 from django import forms
 # from codemirror import CodeMirrorTextarea
 from locate.models import *
-#hello
-
 
 def gethelp(request):
     layout = ClassroomLayout.objects.all()[0]
@@ -32,13 +30,6 @@ def gethelp(request):
 
     return render(request, 'locate/classroom.html', context)
 
-def askquestion(request):
-    # TODO: Add Django form for Question input
-    # TODO: It would be nice to have a code input form for troubleshooing VBA code
-    context = {'queue_count': 0}
-
-    return render(request, 'locate/studentquery.html', context)
-
 def dashboard(request):
     coord_data = StudentLocation.objects.all()
     layout = ClassroomLayout.objects.all()[0]
@@ -53,7 +44,7 @@ class StudentInputForm(forms.Form):
     # codemirror_widget = CodeMirrorTextarea(mode="vbscript", theme="cobalt", config={ 'fixedGutter': True })
     # code_submission = forms.TextField(widget=codemirror_widget)
     question = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False, label='Question')
-    code_submission = forms.CharField(widget=forms.Textarea(), required=False, label='Code')
+    code_submission = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False, label='Code')
     xcoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)
     ycoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)
     img_width = forms.DecimalField(widget=forms.HiddenInput(), required=True)
