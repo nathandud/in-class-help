@@ -1,8 +1,6 @@
 #classroom-layout {
     position: relative;
     border-radius: 10px;
-    /*display: table-cell;*/
-    /*horizontal-align: middle;*/
     margin-left: auto;
     margin-right: auto;
 }
@@ -35,7 +33,3 @@
     color: #1F5C1F;
     box-shadow: 0px 0px 1px #777;
 }
-
-
-
-

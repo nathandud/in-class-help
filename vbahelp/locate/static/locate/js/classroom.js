@@ -10,12 +10,6 @@ $(function() {
     var img_original_width = img.width;
     var img_original_height = img.height;
 
-//    console.log($('#classroom-layout').width);
-//
-//    if ($('#classroom-layout').width === 0) {
-//        location.reload();
-//    }
-
     drawCanvas();
     var myTextArea = document.getElementById("id_code_submission");
     myTextArea.value = 'Option Explicit \n\n'
@@ -27,17 +21,6 @@ $(function() {
             value: myTextArea.value,
             mode: "vbscript"
         });
-
-    console.log(myTextArea);
-
-
-
-
-//    var myCodeMirror = CodeMirror(document.body, {
-//      value: "Option Explicit\n\n",
-//      mode:  "vbscript"
-//    });
-
 
     $('#classroom-layout').off('click').on('click', function(evt) {
 
@@ -76,6 +59,34 @@ $(function() {
 
         context.drawImage(img, 0, 0, img.width, img.height);
     }
+
+    //https://realpython.com/blog/python/django-and-ajax-form-submissions/
+    // Submit post on submit
+    var frm = $('#get-help-form');
+
+    frm.submit (function () {
+        event.preventDefault();
+
+        $.ajax({
+           // get the form data
+          type: frm.attr('method'), // GET or POST
+          url: frm.attr('action'), // the file to call
+          data: frm.serialize(),
+
+          // handle a successful response
+          success : function(data) {
+              console.log("success"); // another sanity check
+          },
+          
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+              $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                  " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+              console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+          }
+        });
+    });
+
 
 
 });

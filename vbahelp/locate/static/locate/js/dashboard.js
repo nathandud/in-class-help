@@ -12,7 +12,7 @@ $(function() {
     var img_original_height = img.height;
 
     raw_array = $.parseJSON(data_from_django);
-    console.log(raw_array);
+    //console.log(raw_array);
     coord_array = [];
 
     for (index = 0; index < raw_array.length; ++index) {

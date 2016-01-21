@@ -7,16 +7,34 @@
 {% block static-css %}
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'locate/css/classroom.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'locate/css/dashboard.css' %}" />
 {% endblock %}
 
 {% block main-content %}
-    <img id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom"/>
-    <canvas id="classroom-layout" width="{{ layout.file_upload.width }}" height="{{ layout.file_upload.height }}"></canvas>
+<div class="container-fluid">
+  <div class="row">
+    <div id="classroom" class="col-md-8 well">
+      <img id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom"/>
+      <canvas id="classroom-layout" width="{{ layout.file_upload.width }}" height="{{ layout.file_upload.height }}"></canvas>
+    </div>
+    <div id="ticket-list" class="col-md-4 well">
+      <table id="ticket-list-table"class="table table-hover">
+        <tr>
+          <td>Hello</td>
+          <td>Test</td>
+        </tr>
+        <tr>
+          <td>Hello</td>
+          <td>Test</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 
 {% block static-js %}
-
 <script type="text/javascript">
     data_from_django = '{{ js_data|safe }}';
 </script>

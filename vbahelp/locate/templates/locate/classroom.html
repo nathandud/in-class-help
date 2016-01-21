@@ -20,12 +20,12 @@
                 <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="{{ layout.width }}" height="{{ layout.height }}" />
                 <canvas class="center-block" id="classroom-layout" width="{{ layout.width }}" height="{{ layout.height }}"></canvas>
             </div>
-            <form action="" method="post">
+            <form id="get-help-form" action="" method="post">
+                {% csrf_token %}
                 <div id="ask_question" class="col-md-4 well">
                     <div class="lead">
                         2. What's the problem?
                     </div>
-                    {% csrf_token %}
                     {% for field in question_form|slice:":1" %}
                         {{ field }}
                     {% endfor %}
@@ -38,10 +38,8 @@
                         {{ field }}
                     {% endfor %}
 
-                        <input id="btn-get-help" type="submit" value="Get Help" />
-
                 </div>
-
+                <input id="btn-get-help" type="submit" value="Get Help" />
                     <!--{{ question_form }}-->
 
              </form>
