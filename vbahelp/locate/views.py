@@ -20,7 +20,13 @@ def inclasshelp(request):
         form = StudentInputForm(request.POST)
         if form.is_valid():
             print('FORM IS VALID')
+            #TODO: Get authorized user instead of ndudley
+            ticket = Ticket()
+            ticket.student = Student.objects.all()[0]
+            ticket.student_question = form.cleaned_data['question']
+
             location = StudentLocation()
+            location.ticket = ticket
             location.xcoord = form.cleaned_data['xcoord']
             location.ycoord = form.cleaned_data['ycoord']
             location.img_width = form.cleaned_data['img_width']
@@ -32,13 +38,14 @@ def inclasshelp(request):
     return render(request, 'locate/classroom.html', context)
 
 def dashboard(request):
-    coord_data = StudentLocation.objects.all()
+    locations = StudentLocation.objects.all()
     layout = ClassroomLayout.objects.all()[0]
     tickets = Ticket.objects.all()
 
-    js_data = serializers.serialize('json', coord_data)
+    coordinates = serializers.serialize('json', locations)
 
     context = {'layout': layout}
+    context['locations'] = locations
     context['tickets'] = tickets
-    context['js_data'] = js_data
+    context['coordinates'] = coordinates
     return render(request, 'locate/ta_dashboard.html', context)

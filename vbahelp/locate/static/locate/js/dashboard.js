@@ -11,12 +11,12 @@ $(function() {
     var img_original_width = img.width;
     var img_original_height = img.height;
 
-    raw_array = $.parseJSON(data_from_django);
-    //console.log(raw_array);
+    raw_coord_array = $.parseJSON(coordinates_from_django);
+    //console.log(raw_coord_array);
     coord_array = [];
 
-    for (index = 0; index < raw_array.length; ++index) {
-        coord_array.push(raw_array[index].fields);
+    for (index = 0; index < raw_coord_array.length; ++index) {
+        coord_array.push(raw_coord_array[index].fields);
     }
 
     drawCanvas();
@@ -71,6 +71,8 @@ $(function() {
                                               canvas, img);
         }
     }
+
+
 
 
 });

@@ -18,15 +18,19 @@
       <canvas id="classroom-layout" width="{{ layout.file_upload.width }}" height="{{ layout.file_upload.height }}"></canvas>
     </div>
     <div id="ticket-list" class="col-md-4 well">
-      <table id="ticket-list-table"class="table table-hover">
+      <table id="ticket-list-table" class="table table-hover vertical-align">
         <tr>
-          <td>Hello</td>
-          <td>Test</td>
+          <th>Student</th>
+          <th>Timestamp</th>
+          <th></th>
         </tr>
-        <tr>
-          <td>Hello</td>
-          <td>Test</td>
+        {% for ticket in tickets %}
+        <tr data-xcoord="{{ ticket.complete }}" data-ycoord="{{ ticket.student.major }}">
+          <td>{{ ticket.student.user.first_name }} {{ticket.student.user.last_name }}</td>
+          <td>{{ ticket.time }}</td>
+          <td><button type="submit" class="btn btn-default">Complete</button>
         </tr>
+        {% endfor %}
       </table>
     </div>
   </div>
@@ -36,7 +40,7 @@
 
 {% block static-js %}
 <script type="text/javascript">
-    data_from_django = '{{ js_data|safe }}';
+    coordinates_from_django = '{{ coordinates|safe }}';
 </script>
 
 <script src="{% static 'locate/js/dashboard.js' %}"></script>

@@ -6,3 +6,4 @@ from locate.models import *
 admin.site.register(ClassroomLayout)
 admin.site.register(StudentLocation)
 admin.site.register(Ticket)
+admin.site.register(Student)
