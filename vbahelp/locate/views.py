@@ -24,7 +24,7 @@ def inclasshelp(request):
             ticket = Ticket()
             ticket.student = Student.objects.all()[0]
             ticket.student_question = form.cleaned_data['question']
-
+            ticket.save()
             location = StudentLocation()
             location.ticket = ticket
             location.xcoord = form.cleaned_data['xcoord']
@@ -38,14 +38,26 @@ def inclasshelp(request):
     return render(request, 'locate/classroom.html', context)
 
 def dashboard(request):
-    locations = StudentLocation.objects.all()
+
+    locations = []
+    for student_location in StudentLocation.objects.all():
+        new_location = location(student_location)
+        locations.append(new_location)
+
     layout = ClassroomLayout.objects.all()[0]
     tickets = Ticket.objects.all()
 
     coordinates = serializers.serialize('json', locations)
 
     context = {'layout': layout}
-    context['locations'] = locations
+    # context['locations'] = locations
     context['tickets'] = tickets
     context['coordinates'] = coordinates
     return render(request, 'locate/ta_dashboard.html', context)
+
+class location:
+    def __init__(self, studentLocation):
+        self.x_coord = studentLocation.xcoord
+        self.y_coord = studentLocation.ycoord
+        self.student_name = '{} {}'.format(studentLocation.ticket.student.user.first_name,
+            studentLocation.ticket.student.user.last_name)

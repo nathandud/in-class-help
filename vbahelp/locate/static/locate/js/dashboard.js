@@ -19,6 +19,8 @@ $(function() {
         coord_array.push(raw_coord_array[index].fields);
     }
 
+    console.log(coord_array);
+
     drawCanvas();
     drawLocationCircles();
 
@@ -63,6 +65,7 @@ $(function() {
             var img_height = coord_array[index].img_height;
             var xcoord = coord_array[index].xcoord;
             var ycoord = coord_array[index].ycoord;
+
 
             xcoord = canvas_width / img_width * xcoord;
             ycoord = canvas_height / img_height * ycoord;
