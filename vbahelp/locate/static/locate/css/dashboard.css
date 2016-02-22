@@ -5,3 +5,7 @@ tr:hover td {
 .table > tbody > tr > td {
   vertical-align: middle;
 }
+
+#question-div {
+  height: 200px;
+}

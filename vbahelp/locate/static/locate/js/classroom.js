@@ -28,7 +28,7 @@ $(function() {
         var centerX = (evt.pageX - offset.left);
         var centerY = (evt.pageY - offset.top);
 
-        $(this).drawCircle(centerX, centerY, canvas, img, false);
+        $(this).drawAnimatedCircle(centerX, centerY, canvas, img, false);
 
         $('#id_xcoord').val(centerX);
         $('#id_ycoord').val(centerY);

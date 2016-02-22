@@ -13,6 +13,15 @@ $(function() {
 
     var selected_circle_id = '';
 
+    raw_ticket_array = $.parseJSON(tickets_from_django);
+    ticket_array = [];
+
+    for (index = 0; index < raw_ticket_array.length; ++index) {
+        ticket_array.push(raw_ticket_array[index].fields);
+    }
+
+    console.log(ticket_array);
+
     raw_coord_array = $.parseJSON(coordinates_from_django);
     coord_array = [];
 
@@ -23,7 +32,9 @@ $(function() {
     console.log(coord_array);
 
     drawCanvas();
-    drawLocationCircles();
+    drawAllCircles();
+    // drawLocationCircle(0, false);
+
 
     var id;
     $(window).resize(function() {
@@ -33,18 +44,17 @@ $(function() {
     });
 
     $('#ticket-list-table tr').hover(function() {
-        //$(this).addClass('hover');
         selected_circle_id = $(this).attr("data-ts-id")
-        drawLocationCircles()
-
+        drawLocationCircle(getCircleIndexFromId(selected_circle_id), true);
+        console.log(ticket_array[index].student_question)
+        $("#student-question").text(ticket_array[index].student_question);
       }, function() {
-        selected_circle_id = ''
-        drawLocationCircles()
-        //$(this).removeClass('hover');
+        selected_circle_id = '';
+        drawAllCircles()
     });
 
     function doneResizing(){
-      drawLocationCircles();
+      drawAllCircles();
     }
 
     function drawCanvas() {
@@ -66,21 +76,26 @@ $(function() {
         context.drawImage(img, 0, 0, img.width, img.height);
     }
 
-    function drawLocationCircles() {
+    function drawAllCircles() {
       //Better to abstract this out
       for (index = 0; index < coord_array.length; ++index) {
-        console.log("CANDIDATE:" + coord_array[index]['ticket'] + ' MATCH:' + selected_circle_id);
-        //TODO: Trying to get these two strings to match!
-        row_id = coord_array[index]['ticket']
+        row_id = coord_array[index]['ticket'];
 
         if (coord_array[index]['ticket'] == selected_circle_id) {
-          console.log('SELECTED');
-          drawLocationCircle(index, true)
+          drawLocationCircle(index, true);
         } else {
           drawLocationCircle(index, false);
         }
-
       }
+    }
+
+    function getCircleIndexFromId(circle_id) {
+      for (index = 0; index < coord_array.length; ++index) {
+        if ( coord_array[index]['ticket'].trim() == circle_id.trim() ) {
+          return index;
+        }
+      }
+
     }
 
     function drawLocationCircle(index, isSelected) {
@@ -93,15 +108,11 @@ $(function() {
             var xcoord = coord_array[index].xcoord;
             var ycoord = coord_array[index].ycoord;
 
-
             xcoord = canvas_width / img_width * xcoord;
             ycoord = canvas_height / img_height * ycoord;
 
             $('#classroom-layout').drawCircle(xcoord, ycoord,
                                               canvas, img, isSelected);
     }
-
-
-
 
 });

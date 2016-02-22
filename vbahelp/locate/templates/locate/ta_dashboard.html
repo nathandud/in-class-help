@@ -13,6 +13,13 @@
 {% block main-content %}
 <div class="container-fluid">
   <div class="row">
+    <div id="question-div" class = "col-md-6 well">
+      <h4>Question: </h4>
+      <div id="student-question" class="label label-default">Hover over a student object</div>
+    </div>
+    <div id="student-code" class="col-md-6 well">
+      Code
+    </div>
     <div id="classroom" class="col-md-8 well">
       <img id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom"/>
       <canvas id="classroom-layout" width="{{ layout.file_upload.width }}" height="{{ layout.file_upload.height }}"></canvas>
@@ -25,8 +32,7 @@
           <th></th>
         </tr>
         {% for ticket in tickets %}
-        <!-- <tr data-ts-id="{{ ticket.student.user.first_name }}-{{ ticket.time|date:"y-m-d-h-i-s"}} "> -->
-        <tr data-ts-id="{{ ticket.js_id }} ">
+        <tr data-ts-id="{{ ticket.js_id }}">
           <td>{{ ticket.student.user.first_name }} {{ticket.student.user.last_name }}</td>
           <td>{{ ticket.time }}</td>
           <td><button type="submit" class="btn btn-default">Complete</button>
@@ -42,6 +48,9 @@
 {% block static-js %}
 <script type="text/javascript">
     coordinates_from_django = '{{ coordinates|safe }}';
+    {% autoescape on %}
+      tickets_from_django = '{{ json_tickets|escapejs }}'
+    {% endautoescape %}
 </script>
 
 <script src="{% static 'locate/js/dashboard.js' %}"></script>
