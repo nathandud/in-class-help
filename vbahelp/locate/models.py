@@ -22,9 +22,11 @@ class Student(models.Model):
 
 class Ticket(models.Model):
     student = models.ForeignKey(Student, null=True)
+    js_id = models.TextField(max_length=15, null=True)
     time = models.DateTimeField(auto_now=True)
     student_question = models.TextField(default="")
     completed = models.BooleanField(default=False)
+
 
     def __str__(self):
         return '{}'.format(self.id)

@@ -11,8 +11,9 @@ $(function() {
     var img_original_width = img.width;
     var img_original_height = img.height;
 
+    var selected_circle_id = '';
+
     raw_coord_array = $.parseJSON(coordinates_from_django);
-    //console.log(raw_coord_array);
     coord_array = [];
 
     for (index = 0; index < raw_coord_array.length; ++index) {
@@ -29,6 +30,17 @@ $(function() {
         drawCanvas();
         clearTimeout(id);
         id = setTimeout(doneResizing, 500);
+    });
+
+    $('#ticket-list-table tr').hover(function() {
+        //$(this).addClass('hover');
+        selected_circle_id = $(this).attr("data-ts-id")
+        drawLocationCircles()
+
+      }, function() {
+        selected_circle_id = ''
+        drawLocationCircles()
+        //$(this).removeClass('hover');
     });
 
     function doneResizing(){
@@ -54,9 +66,24 @@ $(function() {
         context.drawImage(img, 0, 0, img.width, img.height);
     }
 
-
     function drawLocationCircles() {
-        for (index = 0; index < coord_array.length; ++index) {
+      //Better to abstract this out
+      for (index = 0; index < coord_array.length; ++index) {
+        console.log("CANDIDATE:" + coord_array[index]['ticket'] + ' MATCH:' + selected_circle_id);
+        //TODO: Trying to get these two strings to match!
+        row_id = coord_array[index]['ticket']
+
+        if (coord_array[index]['ticket'] == selected_circle_id) {
+          console.log('SELECTED');
+          drawLocationCircle(index, true)
+        } else {
+          drawLocationCircle(index, false);
+        }
+
+      }
+    }
+
+    function drawLocationCircle(index, isSelected) {
 
             var canvas_width = $('#classroom-layout').width();
             var canvas_height = $('#classroom-layout').height();
@@ -71,8 +98,7 @@ $(function() {
             ycoord = canvas_height / img_height * ycoord;
 
             $('#classroom-layout').drawCircle(xcoord, ycoord,
-                                              canvas, img);
-        }
+                                              canvas, img, isSelected);
     }
 
 

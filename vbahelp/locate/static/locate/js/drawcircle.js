@@ -2,7 +2,7 @@
  * Created by ndudley on 4/17/15.
  */
 
-$.fn.drawCircle = function(centerX, centerY, canvas, img) {
+$.fn.drawCircle = function(centerX, centerY, canvas, img, isSelected) {
     const CIRCLE_RADIUS_TO_CANVAS_RATIO = 0.02;
     const BEGIN_RADIUS_TO_END_RADIUS_RATIO = 0.07;
     const CIRCLE_GROWTH_TO_BEGIN_RADIUS_RATIO = 2;
@@ -13,18 +13,19 @@ $.fn.drawCircle = function(centerX, centerY, canvas, img) {
     var end_radius = canvas.width * CIRCLE_RADIUS_TO_CANVAS_RATIO;
     var begin_radius = end_radius * BEGIN_RADIUS_TO_END_RADIUS_RATIO;
 
-
-    //console.log(offset);
-    //console.log('ycoord: ' + ycoord + ', ' + 'xcoord: ' + xcoord);
-    //console.log('centerY: ' + centerY + ', ' + 'centerX: ' + centerX);
-
     var radius = begin_radius;
 
     context.drawImage(img, 0, 0, img.width, img.height);
     draw();
 
     function draw() {
-        context.fillStyle = '#8FAE8F';
+        if (isSelected) {
+          context.fillStyle = '#FFFFFF';
+
+        } else {
+          context.fillStyle = '#8FAE8F';
+        }
+
         context.strokeStyle = '#1F5C1F';
         context.lineWidth = "1.5";
         context.beginPath();

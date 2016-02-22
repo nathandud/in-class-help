@@ -28,7 +28,7 @@ $(function() {
         var centerX = (evt.pageX - offset.left);
         var centerY = (evt.pageY - offset.top);
 
-        $(this).drawCircle(centerX, centerY, canvas, img);
+        $(this).drawCircle(centerX, centerY, canvas, img, false);
 
         $('#id_xcoord').val(centerX);
         $('#id_ycoord').val(centerY);
@@ -77,7 +77,7 @@ $(function() {
           success : function(data) {
               console.log("success"); // another sanity check
           },
-          
+
           // handle a non-successful response
           error : function(xhr,errmsg,err) {
               $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+

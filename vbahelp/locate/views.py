@@ -3,6 +3,7 @@ from django.core import serializers
 from django import forms
 from .forms import StudentInputForm
 from locate.models import *
+import json
 
 def inclasshelp(request):
     layout = ClassroomLayout.objects.all()[0]
@@ -39,15 +40,27 @@ def inclasshelp(request):
 
 def dashboard(request):
 
-    locations = []
-    for student_location in StudentLocation.objects.all():
-        new_location = location(student_location)
-        locations.append(new_location)
+    # locations = []
+    # for student_location in StudentLocation.objects.all():
+    #     new_location = location(student_location)
+    #     locations.append(new_location)
+
+    locations = StudentLocation.objects.all()
 
     layout = ClassroomLayout.objects.all()[0]
     tickets = Ticket.objects.all()
 
     coordinates = serializers.serialize('json', locations)
+    str_coords = json.loads(coordinates)
+
+    counter = 0
+    for coord in str_coords:
+        coord['fields']['ticket'] = tickets[counter].js_id
+        counter += 1
+        print(coord['fields']['ticket'])
+
+
+    coordinates = json.dumps(str_coords)
 
     context = {'layout': layout}
     # context['locations'] = locations
@@ -55,9 +68,12 @@ def dashboard(request):
     context['coordinates'] = coordinates
     return render(request, 'locate/ta_dashboard.html', context)
 
-class location:
-    def __init__(self, studentLocation):
-        self.x_coord = studentLocation.xcoord
-        self.y_coord = studentLocation.ycoord
-        self.student_name = '{} {}'.format(studentLocation.ticket.student.user.first_name,
-            studentLocation.ticket.student.user.last_name)
+def build_date_str(ticket_date):
+    timestamp = ''
+    timestamp += str(ticket_date.year)
+    timestamp += str(ticket_date.month)
+    timestamp += str(ticket_date.day)
+    timestamp += str(ticket_date.hour)
+    timestamp += str(ticket_date.minute)
+    timestamp += str(ticket_date.second)[:2]
+    return timestamp

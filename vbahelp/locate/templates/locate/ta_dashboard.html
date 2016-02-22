@@ -25,7 +25,8 @@
           <th></th>
         </tr>
         {% for ticket in tickets %}
-        <tr data-xcoord="{{ ticket.complete }}" data-ycoord="{{ ticket.student.major }}">
+        <!-- <tr data-ts-id="{{ ticket.student.user.first_name }}-{{ ticket.time|date:"y-m-d-h-i-s"}} "> -->
+        <tr data-ts-id="{{ ticket.js_id }} ">
           <td>{{ ticket.student.user.first_name }} {{ticket.student.user.last_name }}</td>
           <td>{{ ticket.time }}</td>
           <td><button type="submit" class="btn btn-default">Complete</button>
