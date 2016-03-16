@@ -26,6 +26,7 @@ def inclasshelp(request):
             ticket = Ticket()
             ticket.student = Student.objects.all()[0]
             ticket.student_question = form.cleaned_data['question']
+            ticket.student_code = form.cleaned_data['code_submission']
             millis = int(round(time.time() * 1000))
             ticket.js_id = '{}-{}'.format(Student.objects.all()[0].user.username, millis)
             ticket.save()
@@ -56,7 +57,6 @@ def dashboard(request):
     for coord in str_coords:
         coord['fields']['ticket'] = tickets[counter].js_id
         counter += 1
-        print(coord['fields']['ticket'])
 
     coordinates = json.dumps(str_coords)
 

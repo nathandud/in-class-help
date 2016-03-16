@@ -10,11 +10,15 @@ $(function() {
     var img_original_width = img.width;
     var img_original_height = img.height;
 
+    console.log(img_original_width);
+    console.log(img_original_height);
+
     drawCanvas();
-    var myTextArea = document.getElementById("id_code_submission");
+
+    var myTextArea = document.getElementById("code-mirror-div");
     myTextArea.value = 'Option Explicit \n\n'
 
-    var myCodeMirror = CodeMirror(function(elt) {
+    var editor = CodeMirror(function(elt) {
             myTextArea.parentNode.replaceChild(elt, myTextArea);
         },
         {
@@ -66,6 +70,7 @@ $(function() {
 
     frm.submit (function () {
         event.preventDefault();
+        $('#id_code_submission').val(editor.getValue());
 
         $.ajax({
            // get the form data

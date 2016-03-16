@@ -34,14 +34,13 @@
                     <div class="lead">
                         3. Submit code here (optional)
                     </div>
+                    <div id="code-mirror-div"></div>
                     {%for field in question_form|slice:"1:6" %}
                         {{ field }}
                     {% endfor %}
 
                 </div>
                 <input id="btn-get-help" type="submit" value="Get Help" />
-                    <!--{{ question_form }}-->
-
              </form>
         </div>
     </div>
@@ -49,19 +48,14 @@
 
 
 
-<!--<button id="btn-get-help">Get Help</button>-->
 {% endblock %}
-
-<!--{% block footer-content %}-->
-    <!--&lt;!&ndash;<div id="queue">There are {{ queue_count }} students in line.</div>&ndash;&gt;-->
-<!--{% endblock %}-->
 
 {% block static-js %}
 <script src="{% static 'locate/js/classroom.js' %}"></script>
 <script src="{% static 'locate/js/drawcircle.js' %}"></script>
 <script src="{% static 'locate/js/codemirror.js' %}"></script>
 
-<!--load the path variables needed for the vbscript file-->
+
 <script type="text/javascript"> codemirror_path = "{% static 'locate/js/codemirror.js' %}";</script>
 <script src="{% static 'locate/js/vbscript.js' %}"></script>
 {% endblock %}

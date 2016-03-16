@@ -29,25 +29,42 @@ $(function() {
         coord_array.push(raw_coord_array[index].fields);
     }
 
-    console.log(coord_array);
-
     drawCanvas();
     drawAllCircles();
-    // drawLocationCircle(0, false);
+
+    var myTextArea = document.getElementById("code-mirror-div");
+    myTextArea.value = 'Option Explicit \n\n'
+
+    var editor = CodeMirror(function(elt) {
+        console.log(myTextArea.parentNode);
+        myTextArea.parentNode.replaceChild(elt, myTextArea);
+        },
+        {
+            lineNumbers: true,
+            matchBrackets: true,
+            value: myTextArea.value,
+            mode: "vbscript"
+        });
+
+    // var editor = CodeMirror.fromTextArea(document.getElementById("code-mirror-div"), {
+    //     lineNumbers: true,
+    //     matchBrackets: true,
+    //     mode: "vbscript"
+    //   });
 
 
-    var id;
-    $(window).resize(function() {
-        drawCanvas();
-        clearTimeout(id);
-        id = setTimeout(doneResizing, 500);
-    });
+    // var id;
+    // $(window).resize(function() {
+    //     drawCanvas();
+    //     clearTimeout(id);
+    //     id = setTimeout(doneResizing, 500);
+    // });
 
     $('#ticket-list-table tr').hover(function() {
         selected_circle_id = $(this).attr("data-ts-id")
         drawLocationCircle(getCircleIndexFromId(selected_circle_id), true);
-        console.log(ticket_array[index].student_question)
         $("#student-question").text(ticket_array[index].student_question);
+        editor.getDoc().setValue(ticket_array[index].student_code);
       }, function() {
         selected_circle_id = '';
         drawAllCircles()
@@ -62,10 +79,10 @@ $(function() {
         var ratio = img.width / img.height;
 
         if (img_original_width > parent.offsetWidth - 100) {
-            img.width = parent.offsetWidth - 100;
-            img.height = img.width / ratio;
-            canvas.width = parent.offsetWidth - 100;
-            canvas.height = canvas.width / ratio;
+            img.width = (parent.offsetWidth - 100) * 0.75;
+            img.height = (img.width / ratio) * 0.75;
+            canvas.width = (parent.offsetWidth - 100) * 0.75;
+            canvas.height = (canvas.width / ratio) * 0.75;
         } else {
             img.width = img_original_width;
             img.height = img_original_height;

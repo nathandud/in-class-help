@@ -9,3 +9,13 @@ tr:hover td {
 #question-div {
   height: 200px;
 }
+
+#code-div {
+  height: 200px;
+}
+
+.row
+{
+    height: 100%;
+    display: table-row;
+}

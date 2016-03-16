@@ -25,6 +25,7 @@ class Ticket(models.Model):
     js_id = models.TextField(max_length=15, null=True)
     time = models.DateTimeField(auto_now=True)
     student_question = models.TextField(default="")
+    student_code = models.TextField(default="")
     completed = models.BooleanField(default=False)
 
 

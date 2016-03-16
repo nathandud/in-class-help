@@ -4,7 +4,7 @@ class StudentInputForm(forms.Form):
     # codemirror_widget = CodeMirrorTextarea(mode="vbscript", theme="cobalt", config={ 'fixedGutter': True })
     # code_submission = forms.TextField(widget=codemirror_widget)
     question = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False, label='Question')
-    code_submission = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False, label='Code')
+    code_submission = forms.CharField(widget=forms.HiddenInput, required=False)
     xcoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)
     ycoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)
     img_width = forms.DecimalField(widget=forms.HiddenInput(), required=True)
@@ -12,6 +12,10 @@ class StudentInputForm(forms.Form):
 
     def clean_question(self):
         data = self.cleaned_data['question']
+        return data
+
+    def clean_code(self):
+        data = self.cleaned_data['code_submission']
         return data
 
     def clean_xcoord(self):
