@@ -1,11 +1,21 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django import forms
-from .forms import StudentInputForm
+from .forms import *
 from locate.models import *
 import json
-import time
 
+def login(request):
+    login_form = LoginForm()
+    context = {'login_form': login_form}
+    print("HELLO FROM THE OTHER SIDE")
+
+
+    return render(request, 'locate/login.html', context)
+
+@login_required(login_url="/locate/login/")
 def inclasshelp(request):
     layout = ClassroomLayout.objects.all()[0]
     # TODO: Add "active" property to classroom layouts and search using that property
@@ -23,6 +33,7 @@ def inclasshelp(request):
         if form.is_valid():
             print('FORM IS VALID')
             #TODO: Get authorized user instead of ndudley
+
             ticket = Ticket()
             ticket.student = Student.objects.all()[0]
             ticket.student_question = form.cleaned_data['question']
@@ -37,11 +48,13 @@ def inclasshelp(request):
             location.img_width = form.cleaned_data['img_width']
             location.img_height = form.cleaned_data['img_height']
             location.save()
+
         else:
             print('FORM IS INVALID')
 
     return render(request, 'locate/classroom.html', context)
 
+@login_required(login_url="/locate/login/")
 def dashboard(request):
 
     locations = StudentLocation.objects.all()
@@ -66,3 +79,17 @@ def dashboard(request):
     context['json_tickets'] = json_tickets
     context['coordinates'] = coordinates
     return render(request, 'locate/ta_dashboard.html', context)
+
+# def authenticate_user(request):
+#     username = request.POST['username']
+#     password = request.POST['password']
+#     user = authenticate(username=username, password=password)
+#     if user is not None:
+#         if user.is_active:
+#             login(request, user)
+#             # Redirect to a success page.
+#         else:
+#             # Return a 'disabled account' error message
+#             ...
+#     else:
+#         # Return an 'invalid login' error message.

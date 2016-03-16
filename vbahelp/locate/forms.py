@@ -1,8 +1,18 @@
 from django import forms
 
+class LoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=True, label='Net ID')
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), required=True, label='Password')
+
+    def clean_username(self):
+        data = self.cleaned_data['username']
+        return data
+
+    def clean_password(self):
+        data = self.cleaned_data['password']
+        return data
+
 class StudentInputForm(forms.Form):
-    # codemirror_widget = CodeMirrorTextarea(mode="vbscript", theme="cobalt", config={ 'fixedGutter': True })
-    # code_submission = forms.TextField(widget=codemirror_widget)
     question = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False, label='Question')
     code_submission = forms.CharField(widget=forms.HiddenInput, required=False)
     xcoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)
@@ -10,6 +20,7 @@ class StudentInputForm(forms.Form):
     img_width = forms.DecimalField(widget=forms.HiddenInput(), required=True)
     img_height = forms.DecimalField(widget=forms.HiddenInput(), required=True)
 
+    #TODO: Actually do some  validation perhaps
     def clean_question(self):
         data = self.cleaned_data['question']
         return data
