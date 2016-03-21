@@ -6,5 +6,5 @@ urlpatterns = patterns('',
     url(r'^$', views.inclasshelp, name='inclasshelp'),
     url(r'^gethelp/', views.inclasshelp, name='inclasshelp'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
-    url(r'^login/', views.login, name='login'),
+    url(r'^login/', views.user_login, name='user_login'),
 )

@@ -1,25 +1,33 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django import forms
 from .forms import *
 from locate.models import *
 import json
+import time
 
-def login(request):
+def user_login(request):
     login_form = LoginForm()
     context = {'login_form': login_form}
-    print("HELLO FROM THE OTHER SIDE")
-
     next_page = request.GET['next']
 
-
     if request.method == 'POST':
-        #authenticate and redirect
-        print('Next page: {}'.format(next_page))
-        
-    print(request.method)
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    if user.is_staff and next_page == '/locate/dashboard/':
+                        return redirect(next_page)
+                    return redirect('/locate/')
+        else:
+            print('Form is invalid')
 
     return render(request, 'locate/login.html', context)
 
@@ -27,7 +35,6 @@ def login(request):
 def inclasshelp(request):
     layout = ClassroomLayout.objects.all()[0]
     # TODO: Add "active" property to classroom layouts and search using that property
-    print('THIS HAS DEALT WITH THE RESPONSE')
     context = {'layout': layout}
     # TODO: Add queue to model
     # context['queue_count'] = 0
@@ -36,18 +43,16 @@ def inclasshelp(request):
     # context['question_form'] = question_form
     context['question_form'] = fields
 
-    if request.method == "POST":
+    if request.method == 'POST':
         form = StudentInputForm(request.POST)
         if form.is_valid():
-            print('FORM IS VALID')
-            #TODO: Get authorized user instead of ndudley
-
             ticket = Ticket()
-            ticket.student = Student.objects.all()[0]
+            user = request.user
+            ticket.student = Student.objects.get(user=user)
             ticket.student_question = form.cleaned_data['question']
             ticket.student_code = form.cleaned_data['code_submission']
             millis = int(round(time.time() * 1000))
-            ticket.js_id = '{}-{}'.format(Student.objects.all()[0].user.username, millis)
+            ticket.js_id = '{}-{}'.format(user.username, millis)
             ticket.save()
             location = StudentLocation()
             location.ticket = ticket
@@ -56,7 +61,6 @@ def inclasshelp(request):
             location.img_width = form.cleaned_data['img_width']
             location.img_height = form.cleaned_data['img_height']
             location.save()
-
         else:
             print('FORM IS INVALID')
 
@@ -82,22 +86,7 @@ def dashboard(request):
     coordinates = json.dumps(str_coords)
 
     context = {'layout': layout}
-    # context['locations'] = locations
     context['tickets'] = tickets
     context['json_tickets'] = json_tickets
     context['coordinates'] = coordinates
     return render(request, 'locate/ta_dashboard.html', context)
-
-# def authenticate_user(request):
-#     username = request.POST['username']
-#     password = request.POST['password']
-#     user = authenticate(username=username, password=password)
-#     if user is not None:
-#         if user.is_active:
-#             login(request, user)
-#             # Redirect to a success page.
-#         else:
-#             # Return a 'disabled account' error message
-#             ...
-#     else:
-#         # Return an 'invalid login' error message.
