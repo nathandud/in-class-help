@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
@@ -12,6 +12,14 @@ def login(request):
     context = {'login_form': login_form}
     print("HELLO FROM THE OTHER SIDE")
 
+    next_page = request.GET['next']
+
+
+    if request.method == 'POST':
+        #authenticate and redirect
+        print('Next page: {}'.format(next_page))
+        
+    print(request.method)
 
     return render(request, 'locate/login.html', context)
 
