@@ -7,7 +7,7 @@
 {% block static-css %}
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'locate/css/classroom.css' %}" />
-    <link rel="stylesheet" href="{% static 'locate/css/codemirror.css' %}">
+    <link rel="stylesheet" href="{% static 'locate/css/login.css' %}">
 {% endblock %}
 
 {% block main-content %}
@@ -20,6 +20,11 @@
     {{ login_form }}
     <input id="btn-get-help" type="submit" value="Login" />
  </form>
+
+  {% if failed_login %}
+    <div class="failed-login alert alert-danger" role="alert">Login Unsuccessful</div>
+  {% endif %}
+
  </div>
  <div class="col-md-4"></div>
 

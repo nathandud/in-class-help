@@ -12,6 +12,7 @@ def user_login(request):
     login_form = LoginForm()
     context = {'login_form': login_form}
     next_page = request.GET['next']
+    failed_login = False
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -26,9 +27,13 @@ def user_login(request):
                     if user.is_staff and next_page == '/locate/dashboard/':
                         return redirect(next_page)
                     return redirect('/locate/')
+            else:
+                failed_login = True
+                print('<<<<<<<< FAILED LOGIN >>>>>>>>>')
         else:
             print('Form is invalid')
 
+    context['failed_login'] = failed_login
     return render(request, 'locate/login.html', context)
 
 @login_required(login_url="/locate/login/")
