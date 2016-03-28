@@ -13,7 +13,7 @@ class LoginForm(forms.Form):
         return data
 
 class StudentInputForm(forms.Form):
-    question = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), required=False, label='Question')
+    question = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), required=False, label='Question')
     code_submission = forms.CharField(widget=forms.HiddenInput, required=False)
     xcoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)
     ycoord = forms.DecimalField(widget=forms.HiddenInput(), required=True)

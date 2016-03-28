@@ -20,8 +20,6 @@ $(function() {
         ticket_array.push(raw_ticket_array[index].fields);
     }
 
-    console.log(ticket_array);
-
     raw_coord_array = $.parseJSON(coordinates_from_django);
     coord_array = [];
 

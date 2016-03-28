@@ -15,14 +15,16 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div id="classroom" class="col-md-8 well">
+            <div id="classroom" class="col-md-12 well">
                 <div class="lead">1. Click on your location</div>
-                <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="{{ layout.width }}" height="{{ layout.height }}" />
-                <canvas class="center-block" id="classroom-layout" width="{{ layout.width }}" height="{{ layout.height }}"></canvas>
+                <!-- <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="{{ layout.width }}" height="{{ layout.height }}" />
+                <canvas class="center-block" id="classroom-layout" width="{{ layout.width }}" height="{{ layout.height }}"></canvas> -->
+                <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="600px" height="400px" />
+                <canvas class="center-block" id="classroom-layout" width="600px" height="400px"></canvas>
             </div>
             <form id="get-help-form" action="" method="post">
                 {% csrf_token %}
-                <div id="ask_question" class="col-md-4 well">
+                <div id="ask_question" class="col-md-12 well">
                     <div class="lead">
                         2. What's the problem?
                     </div>
@@ -30,7 +32,7 @@
                         {{ field }}
                     {% endfor %}
                 </div>
-                <div id="submit_code" class="col-md-4 well">
+                <div id="submit_code" class="col-md-12 well">
                     <div class="lead">
                         3. Submit code here (optional)
                     </div>
@@ -38,8 +40,9 @@
                     {%for field in question_form|slice:"1:6" %}
                         {{ field }}
                     {% endfor %}
+                    <input id="btn-get-help" type="submit" value="Get Help" />
                 </div>
-                <input id="btn-get-help" type="submit" value="Get Help" />
+
              </form>
         </div>
     </div>

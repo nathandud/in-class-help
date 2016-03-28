@@ -10,9 +10,6 @@ $(function() {
     var img_original_width = img.width;
     var img_original_height = img.height;
 
-    console.log(img_original_width);
-    console.log(img_original_height);
-
     drawCanvas();
 
     var myTextArea = document.getElementById("code-mirror-div");
@@ -41,9 +38,9 @@ $(function() {
 
     });
 
-   $(window).resize(function() {
-        drawCanvas();
-    });
+  //  $(window).resize(function() {
+  //       drawCanvas();
+  //   });
 
     function drawCanvas() {
         var parent = img.parentNode;
