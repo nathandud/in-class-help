@@ -78,6 +78,7 @@ $(function() {
           // handle a successful response
           success : function(data) {
               console.log("success"); // another sanity check
+              showModal();
           },
 
           // handle a non-successful response
@@ -89,6 +90,11 @@ $(function() {
         });
     });
 
-
+    function showModal() {
+      console.log("This is showing a modal");
+      $('#modal-overlay').removeClass('initial_hide');
+      $('#submit-successful').removeClass('initial_hide');
+      $('#submit-failure').removeClass('initial_hide');
+    }
 
 });

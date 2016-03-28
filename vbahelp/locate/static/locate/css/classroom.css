@@ -33,3 +33,39 @@
     color: #1F5C1F;
     box-shadow: 0px 0px 1px #777;
 }
+
+
+
+/*  http://tympanus.net/codrops/2013/11/07/css-overlay-techniques/  */
+body {
+    position: relative; /* needed for the overlay to extend when you scroll */
+}
+
+/* overlay styles, all needed */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* just some content with arbitrary styles for explanation purposes */
+.modal-special {
+    width: 300px;
+    height: 50px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 11; /* 1px higher than the overlay layer */
+}
+
+.initial_hide {
+  display: none;
+}

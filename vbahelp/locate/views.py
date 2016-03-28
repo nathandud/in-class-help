@@ -74,6 +74,9 @@ def inclasshelp(request):
 @login_required(login_url="/locate/login/")
 def dashboard(request):
 
+    if not request.user.is_staff:
+        return redirect('/locate/')
+
     locations = StudentLocation.objects.all()
 
     layout = ClassroomLayout.objects.all()[0]

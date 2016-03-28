@@ -13,18 +13,27 @@
 
 {% block main-content %}
 
+    <div class="initial_hide overlay"></div>
+    <div id ="alert-submit-successful" class="modal-special initial_hide alert alert-success" role="alert">Success</div>
+    <div id= "alert-submit-failure" class="modal-special initial_hide alert alert-danger" role="alert">Unsuccessful</div>
+
     <div class="container-fluid">
         <div class="row">
-            <div id="classroom" class="col-md-12 well">
+            <div class="col-md-2"></div>
+            <div id="classroom" class="col-md-8 well">
                 <div class="lead">1. Click on your location</div>
                 <!-- <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="{{ layout.width }}" height="{{ layout.height }}" />
                 <canvas class="center-block" id="classroom-layout" width="{{ layout.width }}" height="{{ layout.height }}"></canvas> -->
                 <img class="center-block" id="background-img" src="{{ MEDIA_URL }}layouts/{{ layout.filename }}" alt="classroom" width="600px" height="400px" />
                 <canvas class="center-block" id="classroom-layout" width="600px" height="400px"></canvas>
             </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+                <div class="col-md-2"></div>
             <form id="get-help-form" action="" method="post">
                 {% csrf_token %}
-                <div id="ask_question" class="col-md-12 well">
+                <div id="ask_question" class="col-md-8 well">
                     <div class="lead">
                         2. What's the problem?
                     </div>
@@ -32,7 +41,11 @@
                         {{ field }}
                     {% endfor %}
                 </div>
-                <div id="submit_code" class="col-md-12 well">
+                <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+                <div class="col-md-2"></div>
+                <div id="submit_code" class="col-md-8 well">
                     <div class="lead">
                         3. Submit code here (optional)
                     </div>
@@ -42,6 +55,7 @@
                     {% endfor %}
                     <input id="btn-get-help" type="submit" value="Get Help" />
                 </div>
+                <div class="col-md-2"></div>
 
              </form>
         </div>
